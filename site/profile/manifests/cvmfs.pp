@@ -24,6 +24,16 @@ class profile::cvmfs::client(Array[String] $lmod_default_modules){
     require => Package['cvmfs']
   }
 
+  file { '/etc/cvmfs/config.d/ref.mugqic.conf':
+    ensure  => 'present',
+    content => epp('profile/cvmfs/ref.mugqic.conf')
+  }
+
+  file { '/etc/cvmfs/config.d/soft.mugqic.conf':
+    ensure  => 'present',
+    content => epp('profile/cvmfs/soft.mugqic.conf'),
+  }
+
   exec { 'init_default.local':
     command     => 'consul-template -template="/etc/cvmfs/default.local.ctmpl:/etc/cvmfs/default.local" -once',
     path        => [$consul_template::bin_dir],
@@ -52,7 +62,10 @@ class profile::cvmfs::client(Array[String] $lmod_default_modules){
     ensure  => 'present',
     content => epp('profile/cvmfs/z-01-computecanada.sh', {'lmod_default_modules' => $lmod_default_modules}),
   }
-
+  file { '/etc/profile.d/z-01-genpipes.sh':
+    ensure  => 'present',
+    content => epp('profile/cvmfs/z-01-genpipes.sh'),
+  }
   consul_template::watch { 'z-00-rsnt_arch.sh':
     require     => File['/etc/consul-template/z-00-rsnt_arch.sh.ctmpl'],
     config_hash => {
