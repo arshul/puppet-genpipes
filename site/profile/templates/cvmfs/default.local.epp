@@ -1,4 +1,4 @@
-CVMFS_REPOSITORIES="http://cvmfs-1-west-c3g.computecanada.ca:8000/cvmfs/soft.mugqic;http://cvmfs-s0-genomic.vhost38.genap.ca/cvmfs/soft.mugqic"
+CVMFS_REPOSITORIES="cvmfs-config.computecanada.ca,soft.computecanada.ca"
 CVMFS_STRICT_MOUNT="yes"
 CVMFS_QUOTA_LIMIT=4450
 {{ if service "squid" -}}

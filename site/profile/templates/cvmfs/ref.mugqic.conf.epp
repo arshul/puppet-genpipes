@@ -1,7 +1,0 @@
-CVMFS_SERVER_URL="http://cvmfs-s0-genomic.vhost38.genap.ca/cvmfs/@fqrn@"
-CVMFS_KEYS_DIR="/cvmfs/cvmfs-config.computecanada.ca/etc/cvmfs/keys/mugqic"
-{{ if service "squid" -}}
-CVMFS_HTTP_PROXY='{{ range $i, $s := service "squid" }}{{if $i}}|{{end}}http://{{.Address}}:{{.Port}}{{end}}'
-{{ else -}}
-CVMFS_HTTP_PROXY=DIRECT
-{{ end -}}
